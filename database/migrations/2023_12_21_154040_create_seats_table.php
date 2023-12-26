@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('journey_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->foreignId('trip_id')
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
 
             $table->enum('row', ["A", "B", "C", "D", "E", "F", "G", "H", "I"]);
             $table->enum('column', [1, 2, 3, 4]);

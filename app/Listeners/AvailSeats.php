@@ -31,6 +31,8 @@ class AvailSeats
 
         $destinationId = $booking->trip->destination_id;
 
+        $finalDestinationId = $booking->route->destination_id;
+
         foreach($booking->tickets as $ticket)
         {
             $seat = $ticket->seat;
@@ -40,6 +42,38 @@ class AvailSeats
             $column = $seat->column;
 
             $ticket->delete();
+
+            $tripId = Trip::where([
+                    'origin_id' => $destinationId,
+                    'destination_id' => $finalDestinationId,
+                ])
+                ->pluck('id')
+                ->first();
+
+            $otherBookingExists = Seat::where([
+                'trip_id' =>$tripId,
+                'row' => $row,
+                'column' => $column,
+                'available' => false
+            ])->exists();
+
+            if ($otherBookingExists)
+            {
+                $seat->available = true;
+
+                $seat->save();
+
+                return;
+            }
+
+            Seat::where([
+                    'journey_id' => $journeyId,
+                    'row' => $row,
+                    'column' => $column,
+                ])
+                ->update([
+                    'available' => false,
+                ]);
 
             $tripIds = Trip::where([
                     'journey_id' => $journeyId,
@@ -53,20 +87,6 @@ class AvailSeats
                 ])
                 ->update([
                     'available' => true
-                ]);
-
-            $tripIds = Trip::where([
-                    'journey_id' => $journeyId,
-                    'origin_id' => $destinationId,
-                ])->pluck('id');
-
-            Seat::whereIn('trip_id', $tripIds)
-                ->where([
-                    'row' => $row,
-                    'column' => $column,
-                ])
-                ->update([
-                    'available' => false
                 ]);
         }
     }
