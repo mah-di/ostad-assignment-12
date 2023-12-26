@@ -153,7 +153,7 @@ class BookingController extends Controller
 
         event(new BookingCancelled($id));
 
-        Redirect::route('booking.index')->with('status', 'booking-cancelled');
+        return Redirect::route('booking.index')->with('status', 'booking-cancelled');
     }
 
 }
