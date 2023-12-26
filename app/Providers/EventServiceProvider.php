@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\BookingCancelled;
 use App\Events\JourneyCreated;
 use App\Events\BookingMade;
 use App\Events\TripCreated;
+use App\Listeners\AvailSeats;
 use App\Listeners\CreateSeats;
 use App\Listeners\CreateTrips;
 use App\Listeners\UpdateSeats;
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         BookingMade::class => [
             UpdateSeats::class,
+        ],
+        BookingCancelled::class => [
+            AvailSeats::class,
         ],
     ];
 

@@ -32,9 +32,9 @@
                             <b>{{ $revenueLastMonth }}</b> BDT
                         </div>
                         <div class="py-8 text-xl text-center bg-sky-400 text-slate-50 rounded-md">
-                            Historical
+                            This Year
                             <br>
-                            <b>{{ $revenueAlltime }}</b> BDT
+                            <b>{{ $revenueYear }}</b> BDT
                         </div>
                     </div>
 

@@ -68,13 +68,13 @@ class ProfileController extends Controller
 
         $data = [];
 
-        $data['revenueToday'] = Booking::whereDate('created_at', '=', Carbon::now()->toDateString())->sum('payable');
-        $data['revenueThisMonth'] = Booking::whereYear('created_at', '=', Carbon::now()->year)->whereMonth('created_at', '=', Carbon::now()->month)->sum('payable');
-        $data['revenueLastMonth'] = Booking::whereYear('created_at', '=', Carbon::now()->subMonth()->year)->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->sum('payable');
-        $data['revenueAlltime'] = Booking::sum('payable');
+        $data['revenueToday'] = Booking::where('cancelled', '=', false)->whereDate('created_at', '=', Carbon::now()->toDateString())->sum('payable');
+        $data['revenueThisMonth'] = Booking::where('cancelled', '=', false)->whereYear('created_at', '=', Carbon::now()->year)->whereMonth('created_at', '=', Carbon::now()->month)->sum('payable');
+        $data['revenueLastMonth'] = Booking::where('cancelled', '=', false)->whereYear('created_at', '=', Carbon::now()->subMonth()->year)->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->sum('payable');
+        $data['revenueYear'] = Booking::where('cancelled', '=', false)->whereYear('created_at', Carbon::now()->year)->sum('payable');
 
         $data['routeRevenues'] = Route::with([
-                'bookings' => fn ($query) => $query->sum('payable')
+                'bookings' => fn ($query) => $query->where('cancelled', '=', false)
             ])->get();
 
         return view('dashboard', $data);

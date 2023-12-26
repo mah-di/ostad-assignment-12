@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <section class="my-8">
                         <div class="my-4">
-                            <h2 class="text-2xl text-center">Your Bookings</h2>
+                            <h2 class="text-2xl text-center">Get Ready</h2>
                             <p class="text-lg text-center">List of all your upcoming trips.</p>
                         </div>
                         <div class="flex justify-center mt-8">

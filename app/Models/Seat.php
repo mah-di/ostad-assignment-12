@@ -21,9 +21,9 @@ class Seat extends Model
         return $this->belongsTo(Trip::class);
     }
 
-    public function tickets()
+    public function ticket()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasOne(Ticket::class);
     }
 
 }

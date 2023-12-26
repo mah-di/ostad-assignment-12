@@ -57,20 +57,22 @@ Route::middleware('auth')->group(function () {
         Route::post('/route', [RouteController::class, 'store'])->name('route.store');
         Route::get('/route/{id}', [RouteController::class, 'show'])->name('route.show');
 
-        Route::get('/journey', [JourneyController::class, 'index'])->name('journey.index');
-        Route::get('/journey/create', [JourneyController::class, 'create'])->name('journey.create');
-        Route::post('/journey', [JourneyController::class, 'store'])->name('journey.store');
-        Route::get('/journey/{id}/edit', [JourneyController::class, 'edit'])->name('journey.edit');
-        Route::patch('/journey', [JourneyController::class, 'update'])->name('journey.update');
-        Route::get('/journey/{id}', [JourneyController::class, 'show'])->name('journey.show');
+        Route::get('/trip', [JourneyController::class, 'index'])->name('journey.index');
+        Route::get('/trip/create', [JourneyController::class, 'create'])->name('journey.create');
+        Route::post('/trip', [JourneyController::class, 'store'])->name('journey.store');
+        Route::get('/trip/{id}/edit', [JourneyController::class, 'edit'])->name('journey.edit');
+        Route::patch('/trip', [JourneyController::class, 'update'])->name('journey.update');
+        Route::get('/trip/{id}', [JourneyController::class, 'show'])->name('journey.show');
 
+        Route::get('/all-bookings', [BookingController::class, 'allBookings'])->name('booking.all');
     });
-    Route::get('/book-trip/{id}', [TripController::class, 'bookTrip'])->name('trip.book');
-    Route::post('/book-trip', [TripController::class, 'confirmBooking'])->name('trip.confirm');
+    Route::get('/book-trip/{id}', [BookingController::class, 'bookTrip'])->name('trip.book');
+    Route::post('/book-trip', [BookingController::class, 'confirmBooking'])->name('trip.confirm');
 
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::get('/booking/upcoming', [BookingController::class, 'upcomingTrips'])->name('booking.upcoming');
     Route::get('/booking/{id}', [BookingController::class, 'show'])->name('booking.show');
+    Route::delete('/booking/{id}', [BookingController::class, 'cancelBooking'])->name('booking.cancel');
 });
 
 Route::get('/search-trip', [TripController::class, 'searchTrip'])->name('trip.search');

@@ -7,7 +7,7 @@
                     <div class="my-48">
                         <div class="flex justify-center">
                             <h2 class="text-2xl">
-                                IM Travels
+                                TIKI
                             </h2>
                         </div>
                         <div class="mt-8 flex justify-center">
@@ -28,7 +28,7 @@
                     <div class="my-48">
                         <div class="flex justify-center">
                             <h2 class="text-2xl">
-                                IM Travels
+                                TIKI
                             </h2>
                         </div>
                         <div class="mt-8 flex justify-center">
